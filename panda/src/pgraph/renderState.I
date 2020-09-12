@@ -91,7 +91,7 @@ get_attrib(TypeHandle type) const {
   RenderAttribRegistry *reg = RenderAttribRegistry::get_global_ptr();
   int slot = reg->get_slot(type);
   if (slot < 0) {
-    return nullptr;
+    return NULL;
   }
   return _attributes[slot]._attrib;
 }
@@ -103,7 +103,7 @@ get_attrib(TypeHandle type) const {
 ALWAYS_INLINE const RenderAttrib *RenderState::
 get_attrib(int slot) const {
   if (slot < 0) {
-    return nullptr;
+    return NULL;
   }
   return _attributes[slot]._attrib;
 }

@@ -171,6 +171,7 @@ compare_sort(const RenderState &other) const {
   int num_sorted_slots = reg->get_num_sorted_slots();
   for (int n = 0; n < num_sorted_slots; ++n) {
     int slot = reg->get_sorted_slot(n);
+    nassertr(slot >= 0 && slot < 32, 0);
     nassertr((_attributes[slot]._attrib != nullptr) == _filled_slots.get_bit(slot), 0);
 
     const RenderAttrib *a = _attributes[slot]._attrib;
@@ -192,6 +193,7 @@ int RenderState::
 compare_mask(const RenderState &other, SlotMask compare_mask) const {
   SlotMask mask = (_filled_slots | other._filled_slots) & compare_mask;
   int slot = mask.get_lowest_on_bit();
+  nassertr(slot >= 0 && slot < 32, 0);
   while (slot >= 0) {
     const RenderAttrib *a = _attributes[slot]._attrib;
     const RenderAttrib *b = other._attributes[slot]._attrib;
@@ -214,6 +216,7 @@ bool RenderState::
 cull_callback(CullTraverser *trav, const CullTraverserData &data) const {
   SlotMask mask = _filled_slots;
   int slot = mask.get_lowest_on_bit();
+  nassertr(slot >= 0 && slot < 32, 0);
   while (slot >= 0) {
     const Attribute &attrib = _attributes[slot];
     nassertr(attrib._attrib != nullptr, false);
@@ -235,6 +238,7 @@ CPT(RenderState) RenderState::
 make(const RenderAttrib *attrib, int override) {
   RenderState *state = new RenderState;
   int slot = attrib->get_slot();
+  nassertr(slot >= 0 && slot < 32, 0);
   state->_attributes[slot].set(attrib, override);
   state->_filled_slots.set_bit(slot);
   return return_new(state);
@@ -247,6 +251,8 @@ CPT(RenderState) RenderState::
 make(const RenderAttrib *attrib1,
      const RenderAttrib *attrib2, int override) {
   RenderState *state = new RenderState;
+  nassertr(attrib1->get_slot() >= 0 && attrib1->get_slot() < 32, 0);
+  nassertr(attrib2->get_slot() >= 0 && attrib2->get_slot() < 32, 0);
   state->_attributes[attrib1->get_slot()].set(attrib1, override);
   state->_attributes[attrib2->get_slot()].set(attrib2, override);
   state->_filled_slots.set_bit(attrib1->get_slot());
@@ -262,6 +268,10 @@ make(const RenderAttrib *attrib1,
      const RenderAttrib *attrib2,
      const RenderAttrib *attrib3, int override) {
   RenderState *state = new RenderState;
+  nassertr(attrib1->get_slot() >= 0, 0);
+  nassertr(attrib2->get_slot() >= 0, 0);
+  nassertr(attrib3->get_slot() >= 0, 0);
+
   state->_attributes[attrib1->get_slot()].set(attrib1, override);
   state->_attributes[attrib2->get_slot()].set(attrib2, override);
   state->_attributes[attrib3->get_slot()].set(attrib3, override);
@@ -280,6 +290,9 @@ make(const RenderAttrib *attrib1,
      const RenderAttrib *attrib3,
      const RenderAttrib *attrib4, int override) {
   RenderState *state = new RenderState;
+  nassertr(attrib1->get_slot() >= 0, 0);
+  nassertr(attrib2->get_slot() >= 0, 0);
+  nassertr(attrib3->get_slot() >= 0, 0);
   state->_attributes[attrib1->get_slot()].set(attrib1, override);
   state->_attributes[attrib2->get_slot()].set(attrib2, override);
   state->_attributes[attrib3->get_slot()].set(attrib3, override);
@@ -325,6 +338,8 @@ make(const RenderAttrib * const *attrib, int num_attribs, int override) {
   RenderState *state = new RenderState;
   for (int i = 0; i < num_attribs; i++) {
     int slot = attrib[i]->get_slot();
+    nassertr(slot >= 0, 0);
+
     state->_attributes[slot].set(attrib[i], override);
     state->_filled_slots.set_bit(slot);
   }
@@ -512,6 +527,7 @@ invert_compose(const RenderState *other) const {
 CPT(RenderState) RenderState::
 add_attrib(const RenderAttrib *attrib, int override) const {
   int slot = attrib->get_slot();
+  nassertr(slot >= 0, 0);
   if (_filled_slots.get_bit(slot) &&
       _attributes[slot]._override > override) {
     // The existing attribute overrides.
@@ -535,6 +551,7 @@ CPT(RenderState) RenderState::
 set_attrib(const RenderAttrib *attrib) const {
   RenderState *new_state = new RenderState(*this);
   int slot = attrib->get_slot();
+  nassertr(slot >= 0, 0);
   new_state->_attributes[slot]._attrib = attrib;
   new_state->_filled_slots.set_bit(slot);
   return return_new(new_state);
@@ -550,6 +567,7 @@ CPT(RenderState) RenderState::
 set_attrib(const RenderAttrib *attrib, int override) const {
   RenderState *new_state = new RenderState(*this);
   int slot = attrib->get_slot();
+  nassertr(slot >= 0 && slot < 32, 0);
   new_state->_attributes[slot].set(attrib, override);
   new_state->_filled_slots.set_bit(slot);
   return return_new(new_state);
