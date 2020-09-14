@@ -120,11 +120,11 @@ public:
   static void register_with_read_factory();
   virtual void write_datagram(BamWriter *manager, Datagram &dg);
   virtual int complete_pointers(TypedWritable **plist, BamReader *manager);
+  static void first_use();
 
 protected:
   static TypedWritable *make_from_bam(const FactoryParams &params);
   void fillin(DatagramIterator &scan, BamReader *manager);
-  static void first_use();
 
 public:
   static TypeHandle get_class_type() {
@@ -134,7 +134,7 @@ public:
     RenderAttrib::init_type();
     register_type(_type_handle, "TexGenAttrib",
                   RenderAttrib::get_class_type());
-    TexGenAttrib::_attrib_slot = -1;
+    TexGenAttrib::_attrib_slot = 0;
     TexGenAttrib::_is_in_use = false;
   }
   virtual TypeHandle get_type() const {

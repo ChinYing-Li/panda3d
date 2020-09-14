@@ -145,11 +145,11 @@ public:
   virtual int complete_pointers(TypedWritable **plist, BamReader *manager);
 
   virtual void finalize(BamReader *manager);
+  static void first_use();
 
 protected:
   static TypedWritable *make_from_bam(const FactoryParams &params);
   void fillin(DatagramIterator &scan, BamReader *manager);
-  static void first_use();
 
 public:
   static TypeHandle get_class_type() {
@@ -159,7 +159,7 @@ public:
     RenderAttrib::init_type();
     register_type(_type_handle, "ClipPlaneAttrib",
                   RenderAttrib::get_class_type());
-    ClipPlaneAttrib::_attrib_slot = -1;
+    ClipPlaneAttrib::_attrib_slot = 0;
     ClipPlaneAttrib::_is_in_use = false;
   }
   virtual TypeHandle get_type() const {

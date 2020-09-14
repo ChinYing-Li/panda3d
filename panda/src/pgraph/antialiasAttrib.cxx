@@ -268,6 +268,6 @@ init_type() {
   RenderAttrib::init_type();
   register_type(_type_handle, "AntialiasAttrib",
                 RenderAttrib::get_class_type());
-  AntialiasAttrib::_attrib_slot = -1;
+  AntialiasAttrib::_attrib_slot = 0;
   AntialiasAttrib::_is_in_use = false;
 }

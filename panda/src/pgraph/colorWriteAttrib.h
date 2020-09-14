@@ -64,11 +64,11 @@ private:
 public:
   static void register_with_read_factory();
   virtual void write_datagram(BamWriter *manager, Datagram &dg);
+  static void first_use();
 
 protected:
   static TypedWritable *make_from_bam(const FactoryParams &params);
   void fillin(DatagramIterator &scan, BamReader *manager);
-  static void first_use();
 
 PUBLISHED:
   static int get_class_slot() {
@@ -87,7 +87,7 @@ public:
     RenderAttrib::init_type();
     register_type(_type_handle, "ColorWriteAttrib",
                   RenderAttrib::get_class_type());
-    ColorWriteAttrib::_attrib_slot = -1;
+    ColorWriteAttrib::_attrib_slot = 0;
     ColorWriteAttrib::_is_in_use = false;
   }
   virtual TypeHandle get_type() const {

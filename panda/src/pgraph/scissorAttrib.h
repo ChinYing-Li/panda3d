@@ -75,11 +75,11 @@ PUBLISHED:
 public:
   static void register_with_read_factory();
   virtual void write_datagram(BamWriter *manager, Datagram &dg);
+  static void first_use();
 
 protected:
   static TypedWritable *make_from_bam(const FactoryParams &params);
   void fillin(DatagramIterator &scan, BamReader *manager);
-  static void first_use();
 
 public:
   static TypeHandle get_class_type() {
@@ -89,7 +89,7 @@ public:
     RenderAttrib::init_type();
     register_type(_type_handle, "ScissorAttrib",
                   RenderAttrib::get_class_type());
-    ScissorAttrib::_attrib_slot = -1;
+    ScissorAttrib::_attrib_slot = 0;
     ScissorAttrib::_is_in_use = false;
   }
   virtual TypeHandle get_type() const {

@@ -131,7 +131,7 @@ PUBLISHED:
 
 public:
   virtual void output(std::ostream &out) const;
-
+  static void first_use();
 protected:
   virtual int compare_to_impl(const RenderAttrib *other) const;
   virtual size_t get_hash_impl() const;
@@ -178,7 +178,7 @@ public:
     RenderAttrib::init_type();
     register_type(_type_handle, "ShaderAttrib",
                   RenderAttrib::get_class_type());
-    ShaderAttrib::_attrib_slot = -1;
+    ShaderAttrib::_attrib_slot = 0;
     ShaderAttrib::_is_in_use = false;
   }
   virtual TypeHandle get_type() const {
@@ -190,7 +190,6 @@ private:
   static TypeHandle _type_handle;
   static int _attrib_slot;
   static bool _is_in_use;
-  static void first_use();
 };
 
 

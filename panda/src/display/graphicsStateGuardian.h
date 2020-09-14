@@ -772,7 +772,7 @@ public:
   template<class AttribType>
   const RenderAttrib* force_get_attrib_def(CPT(RenderState) rs_ptr)
   {
-    if (AttribType::get_class_slot() < 0) {
+    if (AttribType::get_class_slot() == 0) {
       AttribType::make_default();
     }
     return rs_ptr->get_attrib_def(AttribType::get_class_slot());

@@ -76,6 +76,7 @@ RenderState() :
   _cache_stats.add_num_states(1);
   _read_overrides = nullptr;
   _generated_shader = nullptr;
+  _attributes[0].set(nullptr, 0);
 
 #ifdef DO_MEMORY_USAGE
   MemoryUsage::update_type(this, this);
