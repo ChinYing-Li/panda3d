@@ -9,8 +9,8 @@
 ########################################################################
 
 import sys
-if sys.version_info < (3, 5):
-    print("This version of Python is not supported, use version 3.5 or higher.")
+if sys.version_info < (3, 6):
+    print("This version of Python is not supported, use version 3.6 or higher.")
     exit(1)
 
 try:
@@ -87,7 +87,7 @@ PkgListSet(["PYTHON", "DIRECT",                        # Python support
   "ARTOOLKIT", "OPENCV", "DIRECTCAM", "VISION",        # Augmented Reality
   "GTK2",                                              # GTK2 is used for PStats on Unix
   "MFC", "WX", "FLTK",                                 # Used for web plug-in only
-  "COCOA",                                             # Mac OS X toolkits
+  "COCOA",                                             # macOS toolkits
   "X11",                                               # Unix platform support
   "PANDATOOL", "PVIEW", "DEPLOYTOOLS",                 # Toolchain
   "SKEL",                                              # Example SKEL project
@@ -132,7 +132,7 @@ def usage(problem):
     print("  --distributor X   (short string identifying the distributor of the build)")
     print("  --outputdir X     (use the specified directory instead of 'built')")
     print("  --threads N       (use the multithreaded build system. see manual)")
-    print("  --osxtarget N     (the OS X version number to build for (OS X only))")
+    print("  --osxtarget N     (the macOS version number to build for (macOS only))")
     print("  --override \"O=V\"  (override dtool_config/prc option value)")
     print("  --static          (builds libraries for static linking)")
     print("  --target X        (experimental cross-compilation (android only))")
@@ -272,7 +272,7 @@ def parseopts(args):
         try:
             maj, min = OSXTARGET.strip().split('.')
             OSXTARGET = int(maj), int(min)
-            assert OSXTARGET[0] == 10
+            assert OSXTARGET[0] >= 10
         except:
             usage("Invalid setting for OSXTARGET")
 
@@ -778,7 +778,7 @@ if (COMPILER=="GCC"):
     SmartPkgEnable("FFMPEG",    ffmpeg_libs, ffmpeg_libs, ("libavformat/avformat.h", "libavcodec/avcodec.h", "libavutil/avutil.h"))
     SmartPkgEnable("SWSCALE",   "libswscale", "libswscale", ("libswscale/swscale.h"), target_pkg = "FFMPEG", thirdparty_dir = "ffmpeg")
     SmartPkgEnable("SWRESAMPLE","libswresample", "libswresample", ("libswresample/swresample.h"), target_pkg = "FFMPEG", thirdparty_dir = "ffmpeg")
-    SmartPkgEnable("FFTW",      "",          ("fftw3"), ("fftw.h"))
+    SmartPkgEnable("FFTW",      "fftw3",     ("fftw3"), ("fftw.h"))
     SmartPkgEnable("FMODEX",    "",          ("fmodex"), ("fmodex", "fmodex/fmod.h"))
     SmartPkgEnable("FREETYPE",  "freetype2", ("freetype"), ("freetype2", "freetype2/freetype/freetype.h"))
     SmartPkgEnable("HARFBUZZ",  "harfbuzz",  ("harfbuzz"), ("harfbuzz", "harfbuzz/hb-ft.h"))
@@ -939,7 +939,7 @@ if (COMPILER=="GCC"):
         if (PkgSkip(pkg)==0 and (pkg in SDK)):
             if (GetHost() == "darwin"):
                 # Sheesh, Autodesk really can't make up their mind
-                # regarding the location of the Maya devkit on OS X.
+                # regarding the location of the Maya devkit on macOS.
                 if (os.path.isdir(SDK[pkg] + "/Maya.app/Contents/lib")):
                     LibDirectory(pkg, SDK[pkg] + "/Maya.app/Contents/lib")
                 if (os.path.isdir(SDK[pkg] + "/Maya.app/Contents/MacOS")):
@@ -1111,8 +1111,12 @@ def CompileCxx(obj,src,opts):
             cmd += "/DWINVER=0x600 "
 
             cmd += "/Fo" + obj + " /nologo /c"
-            if GetTargetArch() != 'x64' and (not PkgSkip("SSE2") or 'SSE2' in opts):
-                cmd += " /arch:SSE2"
+            if GetTargetArch() == 'x86':
+                # x86 (32 bit) MSVC 2015+ defaults to /arch:SSE2
+                if not PkgSkip("SSE2") or 'SSE2' in opts:   # x86 with SSE2
+                    cmd += " /arch:SSE2"    # let's still be explicit and pass in /arch:SSE2
+                else:                                       # x86 without SSE2
+                    cmd += " /arch:IA32"
             for x in ipath: cmd += " /I" + x
             for (opt,dir) in INCDIRECTORIES:
                 if (opt=="ALWAYS") or (opt in opts): cmd += " /I" + BracketNameWithQuotes(dir)
@@ -1122,10 +1126,10 @@ def CompileCxx(obj,src,opts):
 
             if (optlevel==1): cmd += " /MDd /Zi /RTCs /GS"
             if (optlevel==2): cmd += " /MDd /Zi"
-            if (optlevel==3): cmd += " /MD /Zi /GS- /O2 /Ob2 /Oi /Ot /fp:fast"
+            if (optlevel==3): cmd += " /MD /Zi /GS- /O2 /fp:fast"
             if (optlevel==4):
-                cmd += " /MD /Zi /GS- /Ox /Ob2 /Oi /Ot /fp:fast /DFORCE_INLINING /DNDEBUG /GL"
-                cmd += " /Oy /Zp16"      # jean-claude add /Zp16 insures correct static alignment for SSEx
+                cmd += " /MD /Zi /GS- /O2 /fp:fast /DFORCE_INLINING /DNDEBUG /GL"
+                cmd += " /Zp16"      # jean-claude add /Zp16 insures correct static alignment for SSEx
 
             cmd += " /Fd" + os.path.splitext(obj)[0] + ".pdb"
 
@@ -1430,7 +1434,7 @@ def CompileFlex(wobj,wsrc,opts):
             oscmd(flex +    " -P" + pre + " -o"+wdst+" "+wsrc)
 
     # Finally, compile the generated source file.
-    CompileCxx(wobj,wdst,opts)
+    CompileCxx(wobj, wdst, opts + ["FLEX"])
 
 ########################################################################
 ##
@@ -1476,7 +1480,7 @@ def CompileIgate(woutd,wsrc,opts):
         target_arch = GetTargetArch()
         if target_arch in ("x86_64", "amd64"):
             cmd += ' -D_LP64'
-        elif target_arch == 'aarch64':
+        elif target_arch in ('aarch64', 'arm64'):
             cmd += ' -D_LP64 -D__LP64__ -D__aarch64__'
         else:
             cmd += ' -D__i386__'
@@ -1762,7 +1766,7 @@ def CompileLink(dll, obj, opts):
         if (GetOrigExt(dll) == ".exe" and GetTarget() == 'windows' and "NOICON" not in opts):
             cmd += " " + GetOutputDir() + "/tmp/pandaIcon.res"
 
-        # Mac OS X specific flags.
+        # macOS specific flags.
         if GetTarget() == 'darwin':
             cmd += " -headerpad_max_install_names"
             if OSXTARGET is not None:
@@ -2008,7 +2012,7 @@ def FreezePy(target, inputs, opts):
 ##########################################################################################
 
 def CompileBundle(target, inputs, opts):
-    assert GetTarget() == "darwin", 'bundles can only be made for Mac OS X'
+    assert GetTarget() == "darwin", 'bundles can only be made for macOS'
     plist = None
     resources = []
     objects = []
@@ -2357,9 +2361,6 @@ def WriteConfigSettings():
         dtool_config["HAVE_VIDEO4LINUX"] = 'UNDEF'
         dtool_config["PHAVE_LINUX_INPUT_H"] = 'UNDEF'
         dtool_config["IS_OSX"] = '1'
-        # 10.4 had a broken ucontext implementation
-        if int(platform.mac_ver()[0][3]) <= 4:
-            dtool_config["PHAVE_UCONTEXT_H"] = 'UNDEF'
 
     if PkgSkip("X11"):
         dtool_config["HAVE_GLX"] = 'UNDEF'
@@ -3825,6 +3826,7 @@ OPTS=['DIR:panda/src/collide']
 IGATEFILES=GetDirectoryContents('panda/src/collide', ["*.h", "*_composite*.cxx"])
 TargetAdd('libp3collide.in', opts=OPTS, input=IGATEFILES)
 TargetAdd('libp3collide.in', opts=['IMOD:panda3d.core', 'ILIB:libp3collide', 'SRCDIR:panda/src/collide'])
+PyTargetAdd('p3collide_ext_composite.obj', opts=OPTS, input='p3collide_ext_composite.cxx')
 
 #
 # DIRECTORY: panda/src/parametrics/
@@ -4069,6 +4071,7 @@ PyTargetAdd('core.pyd', input='p3event_pythonTask.obj')
 PyTargetAdd('core.pyd', input='p3gobj_ext_composite.obj')
 PyTargetAdd('core.pyd', input='p3pgraph_ext_composite.obj')
 PyTargetAdd('core.pyd', input='p3display_ext_composite.obj')
+PyTargetAdd('core.pyd', input='p3collide_ext_composite.obj')
 
 PyTargetAdd('core.pyd', input='core_module.obj')
 if not GetLinkAllStatic() and GetTarget() != 'emscripten':
