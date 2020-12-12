@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle LogicOpAttrib::_type_handle;
-int LogicOpAttrib::_attrib_slot;
+int LogicOpAttrib::_attrib_slot = -1;
 bool LogicOpAttrib::_is_in_use;
 
 /**

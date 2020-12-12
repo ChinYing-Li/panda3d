@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle CullFaceAttrib::_type_handle;
-int CullFaceAttrib::_attrib_slot;
+int CullFaceAttrib::_attrib_slot = -1;
 bool CullFaceAttrib::_is_in_use;
 
 /**

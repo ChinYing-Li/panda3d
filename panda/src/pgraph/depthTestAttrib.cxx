@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle DepthTestAttrib::_type_handle;
-int DepthTestAttrib::_attrib_slot;
+int DepthTestAttrib::_attrib_slot = -1;
 bool DepthTestAttrib::_is_in_use;
 
 /**

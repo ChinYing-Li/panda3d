@@ -38,7 +38,7 @@ get_num_slots() const {
  */
 INLINE TypeHandle RenderAttribRegistry::
 get_slot_type(int slot) const {
-  nassertr(slot > 0 && slot < (int)_registry.size(), TypeHandle::none());
+  nassertr(slot >= 0 && slot < (int)_registry.size(), TypeHandle::none());
   return _registry[slot]._type;
 }
 
@@ -47,7 +47,7 @@ get_slot_type(int slot) const {
  */
 INLINE int RenderAttribRegistry::
 get_slot_sort(int slot) const {
-  nassertr(slot > 0 && slot < (int)_registry.size(), 0);
+  nassertr(slot >= 0 && slot < (int)_registry.size(), 0);
   return _registry[slot]._sort;
 }
 
@@ -58,10 +58,7 @@ get_slot_sort(int slot) const {
  */
 INLINE const RenderAttrib *RenderAttribRegistry::
 get_slot_default(int slot) const {
-  if (slot == 0) {
-    return nullptr;
-  }
-  nassertr(slot > 0 && slot < (int)_registry.size(), 0);
+  nassertr(slot >= 0 && slot < (int)_registry.size(), 0);
   return _registry[slot]._default_attrib;
 }
 

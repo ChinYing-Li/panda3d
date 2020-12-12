@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle ShadeModelAttrib::_type_handle;
-int ShadeModelAttrib::_attrib_slot;
+int ShadeModelAttrib::_attrib_slot = -1;
 bool ShadeModelAttrib::_is_in_use;
 
 /**

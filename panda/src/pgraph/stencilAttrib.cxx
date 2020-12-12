@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle StencilAttrib::_type_handle;
-int StencilAttrib::_attrib_slot;
+int StencilAttrib::_attrib_slot = -1;
 bool StencilAttrib::_is_in_use;
 
 const char *StencilAttrib::

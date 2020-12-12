@@ -22,7 +22,7 @@
 using std::ostream;
 
 TypeHandle ColorBlendAttrib::_type_handle;
-int ColorBlendAttrib::_attrib_slot;
+int ColorBlendAttrib::_attrib_slot = -1;
 bool ColorBlendAttrib::_is_in_use;
 
 /**

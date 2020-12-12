@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle DepthOffsetAttrib::_type_handle;
-int DepthOffsetAttrib::_attrib_slot;
+int DepthOffsetAttrib::_attrib_slot = -1;
 bool DepthOffsetAttrib::_is_in_use;
 
 /**

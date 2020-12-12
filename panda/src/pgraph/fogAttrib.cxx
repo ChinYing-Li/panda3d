@@ -19,7 +19,7 @@
 #include "datagramIterator.h"
 
 TypeHandle FogAttrib::_type_handle;
-int FogAttrib::_attrib_slot;
+int FogAttrib::_attrib_slot = -1;
 bool FogAttrib::_is_in_use;
 
 /**

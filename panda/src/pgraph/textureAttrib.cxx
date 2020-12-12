@@ -24,7 +24,7 @@
 CPT(RenderAttrib) TextureAttrib::_empty_attrib;
 CPT(RenderAttrib) TextureAttrib::_all_off_attrib;
 TypeHandle TextureAttrib::_type_handle;
-int TextureAttrib::_attrib_slot;
+int TextureAttrib::_attrib_slot = -1;
 bool TextureAttrib::_is_in_use;
 
 /**

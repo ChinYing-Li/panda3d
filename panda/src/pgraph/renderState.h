@@ -371,7 +371,7 @@ public:
   template<class Attrib>
   static int force_get_slot()
   {
-    if (Attrib::get_slot() == 0) {
+    if (Attrib::get_slot() < 0) {
       Attrib::make_default();
     }
     return Attrib::get_slot();

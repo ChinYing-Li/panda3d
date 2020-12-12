@@ -22,7 +22,7 @@
 
 CPT(RenderAttrib) TexMatrixAttrib::_empty_attrib;
 TypeHandle TexMatrixAttrib::_type_handle;
-int TexMatrixAttrib::_attrib_slot;
+int TexMatrixAttrib::_attrib_slot = -1;
 bool TexMatrixAttrib::_is_in_use;
 
 /**

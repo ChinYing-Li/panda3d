@@ -22,7 +22,7 @@
 
 CPT(RenderAttrib) TexGenAttrib::_empty_attrib;
 TypeHandle TexGenAttrib::_type_handle;
-int TexGenAttrib::_attrib_slot;
+int TexGenAttrib::_attrib_slot = -1;
 bool TexGenAttrib::_is_in_use;
 
 /**

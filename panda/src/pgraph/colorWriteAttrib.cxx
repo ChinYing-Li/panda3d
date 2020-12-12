@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle ColorWriteAttrib::_type_handle;
-int ColorWriteAttrib::_attrib_slot = 0;
+int ColorWriteAttrib::_attrib_slot = -1;
 bool ColorWriteAttrib::_is_in_use = false;
 
 /**

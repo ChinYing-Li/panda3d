@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle LightRampAttrib::_type_handle;
-int LightRampAttrib::_attrib_slot;
+int LightRampAttrib::_attrib_slot = -1;
 bool LightRampAttrib::_is_in_use;
 CPT(RenderAttrib) LightRampAttrib::_default;
 

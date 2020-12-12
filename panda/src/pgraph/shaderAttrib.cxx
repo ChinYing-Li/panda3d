@@ -33,7 +33,7 @@ using std::ostream;
 using std::ostringstream;
 
 TypeHandle ShaderAttrib::_type_handle;
-int ShaderAttrib::_attrib_slot;
+int ShaderAttrib::_attrib_slot = -1;
 bool ShaderAttrib::_is_in_use;
 
 /**

@@ -22,7 +22,7 @@
 
 CPT(RenderAttrib) AudioVolumeAttrib::_identity_attrib;
 TypeHandle AudioVolumeAttrib::_type_handle;
-int AudioVolumeAttrib::_attrib_slot;
+int AudioVolumeAttrib::_attrib_slot = -1;
 bool AudioVolumeAttrib::_is_in_use;
 
 /**

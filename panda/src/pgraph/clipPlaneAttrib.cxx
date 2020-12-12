@@ -25,7 +25,7 @@
 CPT(RenderAttrib) ClipPlaneAttrib::_empty_attrib;
 CPT(RenderAttrib) ClipPlaneAttrib::_all_off_attrib;
 TypeHandle ClipPlaneAttrib::_type_handle;
-int ClipPlaneAttrib::_attrib_slot;
+int ClipPlaneAttrib::_attrib_slot = -1;
 bool ClipPlaneAttrib::_is_in_use;
 
 // This STL Function object is used in filter_to_max(), below, to sort a list

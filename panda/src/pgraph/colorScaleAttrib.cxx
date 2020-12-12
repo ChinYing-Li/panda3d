@@ -21,7 +21,7 @@
 #include "config_pgraph.h"
 
 TypeHandle ColorScaleAttrib::_type_handle;
-int ColorScaleAttrib::_attrib_slot;
+int ColorScaleAttrib::_attrib_slot = -1;
 bool ColorScaleAttrib::_is_in_use;
 CPT(RenderAttrib) ColorScaleAttrib::_identity_attrib;
 

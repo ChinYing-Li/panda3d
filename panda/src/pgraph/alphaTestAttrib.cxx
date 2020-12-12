@@ -21,7 +21,7 @@
 #include "auxBitplaneAttrib.h"
 
 TypeHandle AlphaTestAttrib::_type_handle;
-int AlphaTestAttrib::_attrib_slot;
+int AlphaTestAttrib::_attrib_slot = -1;
 bool AlphaTestAttrib::_is_in_use;
 
 /**

@@ -21,7 +21,7 @@
 #include "datagramIterator.h"
 
 TypeHandle AntialiasAttrib::_type_handle;
-int AntialiasAttrib::_attrib_slot;
+int AntialiasAttrib::_attrib_slot = -1;
 bool AntialiasAttrib::_is_in_use;
 
 /**

@@ -23,7 +23,7 @@ using std::max;
 using std::min;
 
 TypeHandle ScissorAttrib::_type_handle;
-int ScissorAttrib::_attrib_slot;
+int ScissorAttrib::_attrib_slot = -1;
 bool ScissorAttrib::_is_in_use;
 CPT(RenderAttrib) ScissorAttrib::_off_attrib;
 

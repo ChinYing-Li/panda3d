@@ -27,7 +27,7 @@ using std::ostream;
 using std::string;
 
 TypeHandle RescaleNormalAttrib::_type_handle;
-int RescaleNormalAttrib::_attrib_slot;
+int RescaleNormalAttrib::_attrib_slot = -1;
 bool RescaleNormalAttrib::_is_in_use;
 CPT(RenderAttrib) RescaleNormalAttrib::_attribs[RescaleNormalAttrib::M_auto + 1];
 

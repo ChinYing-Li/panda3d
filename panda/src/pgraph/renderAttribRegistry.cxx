@@ -73,7 +73,6 @@ register_slot(TypeHandle type_handle, int sort, RenderAttrib *default_attrib) {
     return _slots_by_type[type_index];
   }
 
-  // the registry should be initialized to have size 1;
   int slot = (int)_registry.size();
   if (slot >= _max_slots) {
     pgraph_cat->error()
@@ -116,7 +115,7 @@ register_slot(TypeHandle type_handle, int sort, RenderAttrib *default_attrib) {
  */
 void RenderAttribRegistry::
 set_slot_sort(int slot, int sort) {
-  nassertv(slot > 0 && slot < (int)_registry.size());
+  nassertv(slot >= 0 && slot < (int)_registry.size());
   _registry[slot]._sort = sort;
 
   // Re-sort the slot list.

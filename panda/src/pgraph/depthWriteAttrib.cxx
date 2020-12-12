@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle DepthWriteAttrib::_type_handle;
-int DepthWriteAttrib::_attrib_slot;
+int DepthWriteAttrib::_attrib_slot= -1;
 bool DepthWriteAttrib::_is_in_use;
 
 /**

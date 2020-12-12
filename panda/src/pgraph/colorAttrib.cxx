@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle ColorAttrib::_type_handle;
-int ColorAttrib::_attrib_slot;
+int ColorAttrib::_attrib_slot = -1;
 bool ColorAttrib::_is_in_use;
 CPT(RenderAttrib) ColorAttrib::_off;
 CPT(RenderAttrib) ColorAttrib::_vertex;

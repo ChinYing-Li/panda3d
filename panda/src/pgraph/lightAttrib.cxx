@@ -25,7 +25,7 @@
 #include <iterator>
 
 CPT(RenderAttrib) LightAttrib::_empty_attrib;
-int LightAttrib::_attrib_slot;
+int LightAttrib::_attrib_slot = -1;
 bool LightAttrib::_is_in_use;
 CPT(RenderAttrib) LightAttrib::_all_off_attrib;
 TypeHandle LightAttrib::_type_handle;

@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle TransparencyAttrib::_type_handle;
-int TransparencyAttrib::_attrib_slot;
+int TransparencyAttrib::_attrib_slot = -1;
 bool TransparencyAttrib::_is_in_use;
 
 /**
@@ -39,6 +39,7 @@ make(TransparencyAttrib::Mode mode) {
  */
 CPT(RenderAttrib) TransparencyAttrib::
 make_default() {
+  TransparencyAttrib::first_use();
   return return_new(new TransparencyAttrib);
 }
 

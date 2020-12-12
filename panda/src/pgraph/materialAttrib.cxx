@@ -19,7 +19,7 @@
 #include "datagramIterator.h"
 
 TypeHandle MaterialAttrib::_type_handle;
-int MaterialAttrib::_attrib_slot;
+int MaterialAttrib::_attrib_slot = -1;
 bool MaterialAttrib::_is_in_use;
 
 /**

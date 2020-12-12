@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle AuxBitplaneAttrib::_type_handle;
-int AuxBitplaneAttrib::_attrib_slot;
+int AuxBitplaneAttrib::_attrib_slot = -1;
 bool AuxBitplaneAttrib::_is_in_use;
 CPT(RenderAttrib) AuxBitplaneAttrib::_default;
 
