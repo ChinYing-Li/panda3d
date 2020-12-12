@@ -20,8 +20,8 @@
 #include "datagramIterator.h"
 
 TypeHandle ColorWriteAttrib::_type_handle;
-int ColorWriteAttrib::_attrib_slot;
-bool ColorWriteAttrib::_is_in_use;
+int ColorWriteAttrib::_attrib_slot = 0;
+bool ColorWriteAttrib::_is_in_use = false;
 
 /**
  * Constructs a new ColorWriteAttrib object.
@@ -157,4 +157,5 @@ first_use() {
     _is_in_use = true;
     _attrib_slot = register_slot(_type_handle, 100, new ColorWriteAttrib);
   }
+  std::cout << _attrib_slot;
 }
