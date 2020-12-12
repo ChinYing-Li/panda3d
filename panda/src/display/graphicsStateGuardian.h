@@ -764,7 +764,7 @@ public:
   template<class AttribType>
   static void clear_bit_if_exists(RenderState::SlotMask& mask)
   {
-    if (AttribType::get_class_slot() >= 0) {
+    if (AttribType::get_class_slot() > 0) {
       mask.clear_bit(AttribType::get_class_slot());
     }
   }

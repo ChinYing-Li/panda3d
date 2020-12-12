@@ -88,8 +88,6 @@ public:
     RenderAttrib::init_type();
     register_type(_type_handle, "CullFaceAttrib",
                   RenderAttrib::get_class_type());
-    CullFaceAttrib::_attrib_slot = 0;
-    CullFaceAttrib::_is_in_use = false;
   }
   virtual TypeHandle get_type() const {
     return get_class_type();

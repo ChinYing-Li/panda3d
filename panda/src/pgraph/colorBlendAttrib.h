@@ -157,8 +157,6 @@ public:
     RenderAttrib::init_type();
     register_type(_type_handle, "ColorBlendAttrib",
                   RenderAttrib::get_class_type());
-    ColorBlendAttrib::_attrib_slot = 0;
-    ColorBlendAttrib::_is_in_use = false;
   }
   virtual TypeHandle get_type() const {
     return get_class_type();

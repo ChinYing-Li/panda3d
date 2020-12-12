@@ -74,8 +74,6 @@ public:
     RenderAttrib::init_type();
     register_type(_type_handle, "FogAttrib",
                   RenderAttrib::get_class_type());
-    FogAttrib::_attrib_slot = 0;
-    FogAttrib::_is_in_use = false;
   }
   virtual TypeHandle get_type() const {
     return get_class_type();

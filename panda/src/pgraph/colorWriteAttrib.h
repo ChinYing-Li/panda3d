@@ -87,8 +87,6 @@ public:
     RenderAttrib::init_type();
     register_type(_type_handle, "ColorWriteAttrib",
                   RenderAttrib::get_class_type());
-    ColorWriteAttrib::_attrib_slot = 0;
-    ColorWriteAttrib::_is_in_use = false;
   }
   virtual TypeHandle get_type() const {
     return get_class_type();

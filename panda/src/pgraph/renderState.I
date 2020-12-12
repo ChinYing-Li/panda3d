@@ -87,15 +87,18 @@ INLINE const RenderAttrib *RenderState::
 get_attrib(TypeHandle type) const {
   RenderAttribRegistry *reg = RenderAttribRegistry::get_global_ptr();
   int slot = reg->get_slot(type);
-  return _attributes[slot]._attrib;
+  return get_attrib(slot);
 }
 
 /**
- * Returns the RenderAttrib with the indicated slot index, or NULL if there is
+ * Returns the RenderAttrib with the indicated slot index, or nullptr if there is
  * no such RenderAttrib in the state.
  */
 ALWAYS_INLINE const RenderAttrib *RenderState::
 get_attrib(int slot) const {
+  if(slot == 0) {
+    return nullptr;
+  }
   return _attributes[slot]._attrib;
 }
 
@@ -105,11 +108,11 @@ get_attrib(int slot) const {
  */
 INLINE const RenderAttrib *RenderState::
 get_attrib_def(int slot) const {
-  if (_attributes[slot]._attrib != nullptr) {
-    return _attributes[slot]._attrib;
+  if (_attributes[slot]._attrib == nullptr) {
+    RenderAttribRegistry *reg = RenderAttribRegistry::quick_get_global_ptr();
+    return reg->get_slot_default(slot);
   }
-  RenderAttribRegistry *reg = RenderAttribRegistry::quick_get_global_ptr();
-  return reg->get_slot_default(slot);
+  return _attributes[slot]._attrib;
 }
 
 /**
@@ -120,7 +123,7 @@ INLINE int RenderState::
 get_override(TypeHandle type) const {
   RenderAttribRegistry *reg = RenderAttribRegistry::get_global_ptr();
   int slot = reg->get_slot(type);
-  return _attributes[slot]._override;
+  return get_override(slot);
 }
 
 /**
@@ -129,7 +132,7 @@ get_override(TypeHandle type) const {
  */
 INLINE int RenderState::
 get_override(int slot) const {
-  if (slot < 0) {
+  if (slot == 0) {
     return 0;
   }
   return _attributes[slot]._override;

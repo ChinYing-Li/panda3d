@@ -144,8 +144,6 @@ init_type() {
   RenderAttrib::init_type();
   register_type(_type_handle, "RescaleNormalAttrib",
                 RenderAttrib::get_class_type());
-  RescaleNormalAttrib::_attrib_slot = 0;
-  RescaleNormalAttrib::_is_in_use = false;
 }
 
 /**

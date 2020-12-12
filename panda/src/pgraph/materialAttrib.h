@@ -76,13 +76,14 @@ public:
     RenderAttrib::init_type();
     register_type(_type_handle, "MaterialAttrib",
                   RenderAttrib::get_class_type());
-    MaterialAttrib::_attrib_slot = 0;
-    MaterialAttrib::_is_in_use = false;
   }
   virtual TypeHandle get_type() const {
     return get_class_type();
   }
-  virtual TypeHandle force_init_type() {init_type(); return get_class_type();}
+  virtual TypeHandle force_init_type() {
+      init_type();
+      return get_class_type();
+  }
 
 private:
   static TypeHandle _type_handle;

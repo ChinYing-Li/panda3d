@@ -188,8 +188,6 @@ public:
     RenderAttrib::init_type();
     register_type(_type_handle, "TextureAttrib",
                   RenderAttrib::get_class_type());
-    TextureAttrib::_attrib_slot = 0;
-    TextureAttrib::_is_in_use = false;
   }
   virtual TypeHandle get_type() const {
     return get_class_type();
