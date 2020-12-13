@@ -2819,8 +2819,8 @@ do_issue_color() {
   }
 
   if (_color_scale_via_lighting) {
-    clear_bit_if_exists<LightAttrib>(_state_mask);
-    clear_bit_if_exists<MaterialAttrib>(_state_mask);
+    _state_mask.clear_bit(LightAttrib::get_class_slot());
+    _state_mask.clear_bit(MaterialAttrib::get_class_slot());
 
     determine_light_color_scale();
   }
@@ -2834,7 +2834,7 @@ do_issue_color_scale() {
   // If the previous color scale had set a special texture, clear the texture
   // now.
   if (_has_texture_alpha_scale) {
-    clear_bit_if_exists<TextureAttrib>(_state_mask);
+    _state_mask.clear_bit(TextureAttrib::get_class_slot());
   }
 
   const ColorScaleAttrib *target_color_scale = (const ColorScaleAttrib *)
@@ -2845,14 +2845,14 @@ do_issue_color_scale() {
   _has_texture_alpha_scale = false;
 
   if (_color_blend_involves_color_scale) {
-    clear_bit_if_exists<TransparencyAttrib>(_state_mask);
+    _state_mask.clear_bit(TransparencyAttrib::get_class_slot());
   }
   if (_texture_involves_color_scale) {
-    clear_bit_if_exists<TextureAttrib>(_state_mask);
+    _state_mask.clear_bit(TextureAttrib::get_class_slot());
   }
   if (_color_scale_via_lighting) {
-    clear_bit_if_exists<LightAttrib>(_state_mask);
-    clear_bit_if_exists<MaterialAttrib>(_state_mask);
+    _state_mask.clear_bit(LightAttrib::get_class_slot());
+    _state_mask.clear_bit(MaterialAttrib::get_class_slot());
 
     determine_light_color_scale();
   }
@@ -2861,8 +2861,8 @@ do_issue_color_scale() {
       _vertex_colors_enabled && target_color_scale->has_alpha_scale()) {
     // This color scale will set a special texture--so again, clear the
     // texture.
-    clear_bit_if_exists<TextureAttrib>(_state_mask);
-    clear_bit_if_exists<TexMatrixAttrib>(_state_mask);
+    _state_mask.clear_bit(TextureAttrib::get_class_slot());
+    _state_mask.clear_bit(TexMatrixAttrib::get_class_slot());
 
     _has_texture_alpha_scale = true;
   }

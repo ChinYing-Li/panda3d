@@ -91,16 +91,17 @@ reset() {
 
   // Build _inv_state_mask as a mask of 1's where we don't care, and 0's where
   // we do care, about the state.
-  clear_bit_if_exists<ColorAttrib>(_inv_state_mask);
-  clear_bit_if_exists<ColorScaleAttrib>(_inv_state_mask);
-  clear_bit_if_exists<CullFaceAttrib>(_inv_state_mask);
-  clear_bit_if_exists<DepthOffsetAttrib>(_inv_state_mask);
-  clear_bit_if_exists<RenderModeAttrib>(_inv_state_mask);
-  clear_bit_if_exists<RescaleNormalAttrib>(_inv_state_mask);
-  clear_bit_if_exists<TextureAttrib>(_inv_state_mask);
-  clear_bit_if_exists<MaterialAttrib>(_inv_state_mask);
-  clear_bit_if_exists<LightAttrib>(_inv_state_mask);
-  clear_bit_if_exists<ScissorAttrib>(_inv_state_mask);
+  _inv_state_mask.clear_bit(ColorAttrib::get_class_slot());
+  _inv_state_mask.clear_bit(ColorScaleAttrib::get_class_slot());
+  _inv_state_mask.clear_bit(CullFaceAttrib::get_class_slot());
+  _inv_state_mask.clear_bit(DepthOffsetAttrib::get_class_slot());
+  _inv_state_mask.clear_bit(RenderModeAttrib::get_class_slot());
+  _inv_state_mask.clear_bit(RescaleNormalAttrib::get_class_slot());
+  _inv_state_mask.clear_bit(TextureAttrib::get_class_slot());
+  _inv_state_mask.clear_bit(MaterialAttrib::get_class_slot());
+  _inv_state_mask.clear_bit(LightAttrib::get_class_slot());
+  _inv_state_mask.clear_bit(ScissorAttrib::get_class_slot());
+
 
   if (_c != nullptr) {
     glClose(_c);

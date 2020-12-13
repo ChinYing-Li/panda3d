@@ -380,7 +380,7 @@ public:
   static TypeHandle get_class_type() {
     return _type_handle;
   }
-
+  /*
   template<class Attrib>
   static void clear_bit_if_exists(RenderState::SlotMask& mask)
   {
@@ -388,7 +388,7 @@ public:
       mask.clear_bit(Attrib::get_class_slot());
     }
   }
-
+  */
   template<class AttribType>
   const RenderAttrib* force_get_attrib_def(CPT(RenderState) rs_ptr)
   {

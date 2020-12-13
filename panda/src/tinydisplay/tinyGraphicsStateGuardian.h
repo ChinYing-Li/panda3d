@@ -207,14 +207,6 @@ public:
   }
   virtual TypeHandle force_init_type() {init_type(); return get_class_type();}
 
-  template<class Attrib>
-  static void clear_bit_if_exists(RenderState::SlotMask& mask)
-  {
-    if (Attrib::get_class_slot() >= 0) {
-      mask.clear_bit(Attrib::get_class_slot());
-    }
-  }
-
   template<class AttribType>
   const RenderAttrib* force_get_attrib_def(CPT(RenderState) rs_ptr)
   {

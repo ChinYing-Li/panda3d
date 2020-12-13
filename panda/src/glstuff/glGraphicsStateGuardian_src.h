@@ -1154,7 +1154,7 @@ public:
   static TypeHandle get_class_type() {
     return _type_handle;
   }
-
+  /*
   template<class Attrib>
   static void clear_bit_if_exists(RenderState::SlotMask& mask)
   {
@@ -1162,6 +1162,7 @@ public:
       mask.clear_bit(Attrib::get_class_slot());
     }
   }
+  */
 
 public:
   static void init_type() {

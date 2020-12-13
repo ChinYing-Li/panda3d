@@ -20,7 +20,7 @@
 #include "datagramIterator.h"
 
 TypeHandle RenderModeAttrib::_type_handle;
-int RenderModeAttrib::_attrib_slot;
+int RenderModeAttrib::_attrib_slot = -1;
 bool RenderModeAttrib::_is_in_use;
 
 /**

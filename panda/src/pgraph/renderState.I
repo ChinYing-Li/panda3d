@@ -108,7 +108,7 @@ get_attrib(int slot) const {
  */
 INLINE const RenderAttrib *RenderState::
 get_attrib_def(int slot) const {
-  if (_attributes[slot]._attrib == nullptr) {
+  if (slot < 0 || _attributes[slot]._attrib == nullptr) {
     RenderAttribRegistry *reg = RenderAttribRegistry::quick_get_global_ptr();
     return reg->get_slot_default(slot);
   }
@@ -132,7 +132,7 @@ get_override(TypeHandle type) const {
  */
 INLINE int RenderState::
 get_override(int slot) const {
-  if (slot == 0) {
+  if (slot < 0) {
     return 0;
   }
   return _attributes[slot]._override;
